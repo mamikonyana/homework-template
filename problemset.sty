@@ -1,0 +1,24 @@
+\def\fileversion{1.0}
+\def\filedate{2016/09/15}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{problemset}[\filedate{} macros for homeworks]
+
+\RequirePackage{6046}
+
+\let\@class\@empty
+\let\@problem\@empty
+
+% Command to make the header box.
+% \renewcommand{\header}{
+%   \begin{center}
+%     \hspace*{-0.25in}\framebox[7in]{
+%       \vbox{
+%         \hbox to 6.25in { \@author \hfill \@date}
+%         \vspace{1mm}
+%         \hbox to 6.25in {\bf \hfill 6.046 Problem Set \@problemset\ \hfill}
+%         \vspace{1mm}
+%         \hbox to 6.25in { Collaborators: {\it \@collab} \hfill}
+%       }
+%     }
+%   \end{center}
+% }
