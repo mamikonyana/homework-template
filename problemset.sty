@@ -5,20 +5,46 @@
 
 \RequirePackage{6046}
 
-\let\@class\@empty
+\let\@course\@empty
 \let\@problem\@empty
 
+\newcommand{\course}[1]{\def\@course{#1}}
+\newcommand{\problem}[1]{\def\@problem{#1}}
+
 % Command to make the header box.
-% \renewcommand{\header}{
-%   \begin{center}
-%     \hspace*{-0.25in}\framebox[7in]{
-%       \vbox{
-%         \hbox to 6.25in { \@author \hfill \@date}
-%         \vspace{1mm}
-%         \hbox to 6.25in {\bf \hfill 6.046 Problem Set \@problemset\ \hfill}
-%         \vspace{1mm}
-%         \hbox to 6.25in { Collaborators: {\it \@collab} \hfill}
-%       }
-%     }
-%   \end{center}
-% }
+\renewcommand{\header}{
+  \begin{center}
+    \hspace*{-0.25in}\framebox[7in]{
+      \vbox{
+        \hbox to 6.25in { \@author \hfill \@date}
+        \vspace{1mm}
+        \hbox to 6.25in {\bf \hfill \@course\ PSet \@problemset\ - Problem \@problem\ \hfill}
+        \vspace{1mm}
+        \hbox to 6.25in { Collaborators: {\it \@collab} \hfill}
+      }
+    }
+  \end{center}
+}
+
+\AtBeginDocument{
+  \ifx \@author \@empty
+    \@latexerr{You must use \noexpand\author{name} for a homework}
+  \fi
+  \ifx \@course \@empty
+    \@latexerr{You must use \noexpand\course{name} for a homework}
+  \fi
+  \ifx \@problemset \@empty
+    \@latexerr{You must use \noexpand\problemset{number} for a homework}
+  \fi
+  \ifx \@problem \@empty
+    \@latexerr{You must use \noexpand\problem{name} for a homework}
+  \fi
+  \ifx \@collab \@empty
+    \@latexerr{You must use \noexpand\collab{names or none} for a homework}
+  \fi
+  \thispagestyle{plain}
+  \lhead{\@author}
+  \rhead{\textbf{\@course Problem Set \@problemset}}
+  \cfoot{\thepage}
+  \pagestyle{fancy}
+}
