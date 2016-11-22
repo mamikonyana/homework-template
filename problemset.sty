@@ -7,9 +7,29 @@
 
 \let\@course\@empty
 \let\@problem\@empty
+\let\@pageprefix\@empty
+
+\newcommand{\range}[2]{\{#1, \ldots, #2\}}
+
+\newcommand{\twopartdefmbox}[5]
+{
+    \left\{
+        \begin{array}{ll}
+            #2 & \mbox{#1 } #3 \\
+            #4 & \mbox{#1 } #5
+        \end{array}
+    \right.
+}
+
+\newcommand{\twopartdef}[4]
+{
+\twopartdefmbox{if}{#1}{#2}{#3}{#4}
+}
 
 \newcommand{\course}[1]{\def\@course{#1}}
 \newcommand{\problem}[1]{\def\@problem{#1}}
+\newcommand{\pageprefix}[1]{\def\@pageprefix{#1}}
+
 
 % Command to make the header box.
 \renewcommand{\header}{
@@ -42,9 +62,14 @@
   \ifx \@collab \@empty
     \@latexerr{You must use \noexpand\collab{names or none} for a homework}
   \fi
-  \thispagestyle{plain}
+  % TODO: First page should have plain style but different page number (not 1)
+  \thispagestyle{fancy}
   \lhead{\@author}
   \rhead{\textbf{\@course\ PSet \@problemset\ Problem \@problem}}
-  \cfoot{\thepage}
+  \ifx \@pageprefix \@empty
+    \cfoot{\@problem-\thepage}
+  \else
+    \cfoot{\@pageprefix-\thepage}
+  \fi
   \pagestyle{fancy}
 }
