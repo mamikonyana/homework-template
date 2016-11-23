@@ -46,6 +46,17 @@
   \end{center}
 }
 
+% Use "{problem_name}-{problem_page}" numbering scheme
+\setcounter{page}{1}
+\renewcommand{\thepage}{
+  \ifx \@pageprefix \@empty
+    \@problem-\arabic{page}
+  \else
+    \@pageprefix-\arabic{page}
+  \fi
+}
+
+
 \AtBeginDocument{
   \ifx \@author \@empty
     \@latexerr{You must use \noexpand\author{name} for a homework}
@@ -62,14 +73,8 @@
   \ifx \@collab \@empty
     \@latexerr{You must use \noexpand\collab{names or none} for a homework}
   \fi
-  % TODO: First page should have plain style but different page number (not 1)
-  \thispagestyle{fancy}
+  \thispagestyle{plain}
   \lhead{\@author}
   \rhead{\textbf{\@course\ PSet \@problemset\ Problem \@problem}}
-  \ifx \@pageprefix \@empty
-    \cfoot{\@problem-\thepage}
-  \else
-    \cfoot{\@pageprefix-\thepage}
-  \fi
   \pagestyle{fancy}
 }
